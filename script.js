@@ -122,5 +122,5 @@ void function (){
     testArea.addEventListener("keypress", start, false);
     testArea.addEventListener('keyup', spellCheck, false);
     resetButton.addEventListener("click", reset, false);
-    
+
 }();
