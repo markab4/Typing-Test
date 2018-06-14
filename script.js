@@ -63,7 +63,6 @@ void function (){
             case originText :
                 hasError = false;
                 clearInterval(interval);
-                timerRunning = false;
                 testWrapper.style.borderColor = '#429890';
                 theWPMcount.innerHTML = "WPM: " + countWPM();
                 break;
@@ -97,6 +96,7 @@ void function (){
         counter = 0;
         interval = null;
         timer = [0, 0, 0, 0];
+        timerRunning = false;
 
         testArea.value = "";
         theCounter.innerHTML = "Error Count: 0";
