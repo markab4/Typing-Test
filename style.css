@@ -48,7 +48,6 @@ address {
 pre {
 	background: #eee;
 	font-family: "Courier 10 Pitch", Courier, monospace;
-	font-size: 15px;
 	font-size: 1.5rem;
 	line-height: 1.6;
 	margin-bottom: 1.6em;
@@ -60,7 +59,7 @@ pre {
 code,
 kbd,
 tt,
-var {
+let {
 	font: 15px Monaco, Consolas, "Andale Mono", "DejaVu Sans Mono", monospace;
 }
 
@@ -174,7 +173,7 @@ body {
 }
 
 .counter{
-    padding: .5em 0em;
+    padding: .5em 0;
     font-size: 2em;
     font-weight: bold;
     color: #429890;
@@ -182,7 +181,7 @@ body {
 }
 
 .wpm{
-    padding: .5em 0em;
+    padding: .5em 0;
     font-size: 3em;
     font-weight: bold;
     color: #65CCf3;

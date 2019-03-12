@@ -1,25 +1,22 @@
 void function (){
+    const testWrapper = document.querySelector(".test-wrapper"),
+        testArea = document.querySelector("#test-area"),
+        resetButton = document.querySelector("#reset"),
+        timerElement = document.querySelector(".timer"),
+        counterElement = document.querySelector(".counter"),
+        wpmElement = document.querySelector('.wpm');
 
-    const testWrapper = document.querySelector(".test-wrapper");
-    const testArea = document.querySelector("#test-area");
-    const resetButton = document.querySelector("#reset");
-    const theTimer = document.querySelector(".timer");
-    const theCounter = document.querySelector(".counter");
-    const theWPMcount = document.querySelector('.wpm');
-
-    var originText = document.querySelector("#origin-text p").innerHTML;
-    var counter = 0;
-    var timer = [0, 0, 0, 0];
-    var interval;
-    var timerRunning = false;
-    var hasError = false;
-
-
-// Retrieving quotes from a local JSON
+    let originText = document.querySelector("#origin-text p").innerHTML,
+        counter = 0,
+        timer = [0, 0, 0, 0],
+        interval,
+        timerRunning = false,
+        hasError = false;
 
 
-    var newQuote = function () {
-        var list = fetch("quotes.JSON")
+// Retrieving quotes from the local JSON
+    let newQuote = function () {
+        let list = fetch("quotes.JSON")
             .then(res => res.json())
             .then(data => {
                 return (list = data);
@@ -32,22 +29,19 @@ void function (){
         });
     };
 
-
-// Add leading zero to numbers 9 or below (purely for aesthetics):
+// Adding leading zero to numbers 9 or below (purely for aesthetics)
     function leadingZero(time) {
         return (time < 10) ? "0" + time : time;
     }
 
-
-// Run a standard minute/second/hundredths timer:
+// Running a standard minute/second/hundredths timer
     function runTimer() {
         let currentTime = '';
-
         for (let i = 0; i < 2; i++) {
             currentTime += leadingZero(timer[i]) + ':';
         }
         currentTime += leadingZero(timer[2]);
-        theTimer.innerHTML = currentTime;
+        timerElement.innerHTML = currentTime;
         timer[3]++;
 
         timer[0] = Math.floor((timer[3] / 100) / 60);    //minutes
@@ -55,7 +49,7 @@ void function (){
         timer[2] = Math.floor(timer [3] - timer[1] * 100 - timer[0] * 6000); //100ths of seconds
     }
 
-// Match the text entered with the provided text on the page:
+// Matching the text entered with the provided text on the page
     function spellCheck() {
         let textEntered = testArea.value;
         let originTextMatch = originText.substring(0, textEntered.length);
@@ -64,23 +58,23 @@ void function (){
                 hasError = false;
                 clearInterval(interval);
                 testWrapper.style.borderColor = '#429890';
-                theWPMcount.innerHTML = "WPM: " + countWPM();
+                wpmElement.innerHTML = "WPM: " + countWPM();
+                testArea.disabled = true;
                 break;
             case originTextMatch :
                 hasError = false;
                 testWrapper.style.borderColor = '#65CCf3';
-                theCounter.style.color = "#429890";
+                counterElement.style.color = "#429890";
                 break;
             default :
                 testWrapper.style.borderColor = "#E95D0F";
-                theCounter.style.color = "#E95D0F";
+                counterElement.style.color = "#E95D0F";
                 if (!hasError && timerRunning) incErrors();
                 hasError = true;
         }
     }
 
-
-// Start the timer:
+// Starting the timer
     function start() {
         let textEnteredLength = testArea.value.length;
         if (textEnteredLength === 0 && !timerRunning) {
@@ -89,38 +83,39 @@ void function (){
         }
     }
 
-// Reset everything:
+// Resetting everything
     function reset() {
         newQuote();
         clearInterval(interval);
         counter = 0;
         interval = null;
         timer = [0, 0, 0, 0];
+        testArea.disabled = false;
         timerRunning = false;
 
         testArea.value = "";
-        theCounter.innerHTML = "Error Count: 0";
-        theTimer.innerHTML = "00:00:00";
+        counterElement.innerHTML = "Error Count: 0";
+        timerElement.innerHTML = "00:00:00";
         testWrapper.style.borderColor = "grey";
-        theCounter.style.color = "#429890";
+        counterElement.style.color = "#429890";
     }
 
-//Words Per Minute
+// Words Per Minute
     function countWPM() {
         return Math.round((originText.length / 5) / (timer[0] + timer[1] / 60 + timer[2] / (60 * 60)));
     }
 
-//Error Count
+// Error Count
     function incErrors() {
-        theCounter.innerHTML = "Error Count: " + ++counter;
+        counterElement.innerHTML = "Error Count: " + ++counter;
     }
 
 // High Score functionality, to be coded
+
 
 // Event listeners for keyboard input and the reset button:
     newQuote();
     testArea.addEventListener("keypress", start, false);
     testArea.addEventListener('keyup', spellCheck, false);
     resetButton.addEventListener("click", reset, false);
-
 }();
