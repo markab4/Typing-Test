@@ -15,19 +15,11 @@ void function (){
 
 
 // Retrieving quotes from the local JSON
-    let newQuote = function () {
-        let list = fetch("quotes.JSON")
-            .then(res => res.json())
-            .then(data => {
-                return (list = data);
-            });
-
-        list.then(function () {
-            let randomNumber = Math.floor(Math.random() * list.length);
-            originText = list[randomNumber]['quoteText'] + ' - ' + list[randomNumber]['quoteAuthor'];
-            document.getElementById('origin-text').innerHTML = originText;
-        });
-    };
+    function newQuote () {
+        let randomNumber = Math.floor(Math.random() * list.length);
+        originText = list[randomNumber]['quoteText'] + ' - ' + list[randomNumber]['quoteAuthor'];
+        document.getElementById('origin-text').innerHTML = originText;
+    }
 
 // Adding leading zero to numbers 9 or below (purely for aesthetics)
     function leadingZero(time) {

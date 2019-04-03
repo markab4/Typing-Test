@@ -2,13 +2,15 @@
 
 A browser application to test typing speed and accuracy. Counts the number of typing errors made, calculates Words Per Minute (WPM), and randomizes test text from a collection of over 1600 pithy quotes.
 
+[Test your typing speed here!](https://markab4.github.io/Typing-Test/index.html)
+
 ## Visual Design
 
 ![Typing Test](./VisualDesign.png)
 
 ## User Stories
 
-* On page load, the application fetches a random **new quote** from a JSON with a collection of famous quotes and authors
+* On page load, the application fetches a random **new quote** from a JavaScript Object with a collection of popular quotes and authors
     * This quote becomes the "test text" which a user must copy exactly
 * An event listener **starts the timer** running when the user starts typing
 * Another event listener performs a **spellcheck** for every character the user types
